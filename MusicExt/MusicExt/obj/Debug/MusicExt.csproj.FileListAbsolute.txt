@@ -1,0 +1,14 @@
+D:\His\MusicExt\MusicExt\bin\Debug\MusicExt.exe.config
+D:\His\MusicExt\MusicExt\bin\Debug\MusicExt.exe
+D:\His\MusicExt\MusicExt\bin\Debug\MusicExt.pdb
+D:\His\MusicExt\MusicExt\obj\Debug\MusicExt.csprojResolveAssemblyReference.cache
+D:\His\MusicExt\MusicExt\obj\Debug\MusicExt.Form1.resources
+D:\His\MusicExt\MusicExt\obj\Debug\MusicExt.Properties.Resources.resources
+D:\His\MusicExt\MusicExt\obj\Debug\MusicExt.csproj.GenerateResource.Cache
+D:\His\MusicExt\MusicExt\obj\Debug\MusicExt.exe
+D:\His\MusicExt\MusicExt\obj\Debug\MusicExt.pdb
+D:\His\MusicExt\MusicExt\bin\Debug\Interop.Shell32.dll
+D:\His\MusicExt\MusicExt\obj\Debug\Interop.Shell32.dll
+D:\His\MusicExt\MusicExt\obj\Debug\MusicExt.csproj.ResolveComReference.cache
+D:\His\MusicExt\MusicExt\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\His\MusicExt\MusicExt\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
