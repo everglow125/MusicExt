@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using Shell32;
+using System.Threading;
 
 namespace MusicExt
 {
@@ -30,7 +31,8 @@ namespace MusicExt
             this.lstMusic.DataSource = bs;
             this.lstMusic.DisplayMember = "Name";
             this.lstMusic.ValueMember = "FullName";
-
+            foreach (var item in fileList)
+                axWindowsMediaPlayer1.currentPlaylist.appendItem(axWindowsMediaPlayer1.newMedia(item.FullName));
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -266,6 +268,11 @@ namespace MusicExt
 
         private void lstMusic_DoubleClick(object sender, EventArgs e)
         {
+
+            axWindowsMediaPlayer1.URL = this.lstMusic.SelectedValue.ToString();
+            axWindowsMediaPlayer1.Ctlcontrols.play();
+
+            return;
             MusicInfo music = new MusicInfo();
             string filePath = this.lstMusic.SelectedValue.ToString();
             var existsFile = musicList.Where(x => x.FilePath == filePath).ToList();
@@ -290,6 +297,7 @@ namespace MusicExt
             fmDetail fd = new fmDetail(music);
             fd.Show();
         }
+
     }
 
     public class MusicInfo
