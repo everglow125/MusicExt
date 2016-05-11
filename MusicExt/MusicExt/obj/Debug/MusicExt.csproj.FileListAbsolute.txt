@@ -12,3 +12,4 @@ D:\His\MusicExt\MusicExt\obj\Debug\Interop.Shell32.dll
 D:\His\MusicExt\MusicExt\obj\Debug\MusicExt.csproj.ResolveComReference.cache
 D:\His\MusicExt\MusicExt\bin\Debug\Microsoft.WindowsAPICodePack.dll
 D:\His\MusicExt\MusicExt\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\His\MusicExt\MusicExt\obj\Debug\MusicExt.fmDetail.resources
