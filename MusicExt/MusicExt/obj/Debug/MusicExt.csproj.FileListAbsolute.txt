@@ -25,10 +25,10 @@ D:\MusicExt\MusicExt\MusicExt\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
 D:\MusicExt\MusicExt\MusicExt\bin\Debug\Interop.Shell32.dll
 D:\MusicExt\MusicExt\MusicExt\bin\Debug\Interop.WMPLib.dll
 D:\MusicExt\MusicExt\MusicExt\bin\Debug\AxInterop.WMPLib.dll
-D:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.csprojResolveAssemblyReference.cache
 D:\MusicExt\MusicExt\MusicExt\obj\Debug\Interop.WMPLib.dll
 D:\MusicExt\MusicExt\MusicExt\obj\Debug\AxInterop.WMPLib.dll
 D:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.Form1.resources
 D:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.fmDetail.resources
 D:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.Properties.Resources.resources
 D:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.csproj.GenerateResource.Cache
+D:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.csprojResolveAssemblyReference.cache

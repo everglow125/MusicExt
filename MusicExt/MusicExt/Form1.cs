@@ -269,7 +269,9 @@ namespace MusicExt
         private void lstMusic_DoubleClick(object sender, EventArgs e)
         {
 
-            axWindowsMediaPlayer1.URL = this.lstMusic.SelectedValue.ToString();
+            //   axWindowsMediaPlayer1.URL = this.lstMusic.SelectedValue.ToString();
+            axWindowsMediaPlayer1.Ctlcontrols.currentItem = axWindowsMediaPlayer1.currentPlaylist.get_Item(this.lstMusic.SelectedIndex);
+            axWindowsMediaPlayer1.currentMedia.setItemInfo("Title", this.lstMusic.SelectedValue.ToString());
             axWindowsMediaPlayer1.Ctlcontrols.play();
 
             return;
@@ -297,6 +299,8 @@ namespace MusicExt
             fmDetail fd = new fmDetail(music);
             fd.Show();
         }
+
+
 
     }
 

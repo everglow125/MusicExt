@@ -106,7 +106,9 @@
             this.lstMusic.FormattingEnabled = true;
             this.lstMusic.ItemHeight = 12;
             this.lstMusic.Location = new System.Drawing.Point(29, 55);
+            this.lstMusic.MultiColumn = true;
             this.lstMusic.Name = "lstMusic";
+            this.lstMusic.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstMusic.Size = new System.Drawing.Size(273, 400);
             this.lstMusic.TabIndex = 10;
             this.lstMusic.SelectedIndexChanged += new System.EventHandler(this.lstMusic_SelectedIndexChanged);
@@ -361,8 +363,9 @@
             this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "动次打次";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
