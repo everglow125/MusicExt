@@ -78,6 +78,31 @@ namespace MusicExt
             }
         }
 
+        private MusicInfo GetMusic(string filePath)
+        {
+            MusicInfo music = new MusicInfo();
+            var existsFile = musicList.Where(x => x.FilePath == filePath).ToList();
+            if (existsFile != null && existsFile.Count > 0)
+                music = existsFile[0];
+            else
+            {
+                ShellClass sh = new ShellClass();
+                Folder dir = sh.NameSpace(Path.GetDirectoryName(filePath));
+                FolderItem item = dir.ParseName(Path.GetFileName(filePath));
+                music.FileName = dir.GetDetailsOf(item, 0);
+                music.Singer = dir.GetDetailsOf(item, 13);
+                music.Anthor = dir.GetDetailsOf(item, 20);
+                music.Title = dir.GetDetailsOf(item, 21);
+                music.KBps = dir.GetDetailsOf(item, 28).Trim();
+                music.Collection = dir.GetDetailsOf(item, 14);
+                music.Time = dir.GetDetailsOf(item, 27);
+                music.FileSize = dir.GetDetailsOf(item, 1);
+                music.Category = dir.GetDetailsOf(item, 16);
+                musicList.Add(music);
+            }
+            return music;
+        }
+
 
         private void ShowDetail()
         {
@@ -129,9 +154,12 @@ namespace MusicExt
                 {
                     var filePath = (item as TFile).FullName;
                     MediaTags mt = new MediaTags(filePath);
-                    mt.AlbumArtist = this.txtSinger.Text;
                     mt.AlbumTitle = this.txtSpecial.Text;
-                    mt.Author = this.txtSinger.Text;
+                    if (this.txtSinger.Text.Trim().ToLower() != "")
+                    {
+                        mt.Author = this.txtSinger.Text;
+                        mt.AlbumArtist = this.txtSinger.Text;
+                    }
                     mt.Comment = "";
                     mt.SubTitle = "";
                     mt.SaveChanged(filePath);
@@ -207,12 +235,12 @@ namespace MusicExt
             {
                 foreach (var item in this.fileList)
                 {
-                    MediaTags mt = new MediaTags(item.FullName);
+                    MusicInfo music = GetMusic(item.FullName);
                     string[] temp = item.FullName.Split('\\');
-                    if (this.rbtnMusicName.Checked || string.IsNullOrEmpty(mt.Author))
-                        temp[temp.Count() - 1] = string.Format("{0}.mp3", mt.Title);
+                    if (this.rbtnMusicName.Checked || string.IsNullOrEmpty(music.Singer))
+                        temp[temp.Count() - 1] = string.Format("{0}.mp3", music.Title);
                     else if (this.btnBoth.Checked)
-                        temp[temp.Count() - 1] = string.Format("{0} - {1}.mp3", mt.Author.Replace(";", "&"), mt.Title);
+                        temp[temp.Count() - 1] = string.Format("{0} - {1}.mp3", music.Singer.Replace(";", "&"), music.Title);
                     string newFilePath = string.Join("\\", temp);
                     if (newFilePath.Substring(0, newFilePath.Length - 4) != item.FullName.Substring(0, item.FullName.Length - 4))
                     {
