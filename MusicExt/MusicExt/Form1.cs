@@ -116,38 +116,42 @@ namespace MusicExt
 
         private void ShowDetail()
         {
-            MusicInfo music = new MusicInfo();
-            string filePath = this.lstMusic.SelectedValue.ToString();
-            var existsFile = musicList.Where(x => x.FilePath == filePath).ToList();
-            if (existsFile != null && existsFile.Count > 0)
-                music = existsFile[0];
-            else
+            try
             {
-                ShellClass sh = new ShellClass();
-                Folder dir = sh.NameSpace(Path.GetDirectoryName(filePath));
-                FolderItem item = dir.ParseName(Path.GetFileName(filePath));
-                music.FileName = dir.GetDetailsOf(item, 0);
-                music.Singer = dir.GetDetailsOf(item, 13);
-                music.Anthor = dir.GetDetailsOf(item, 20);
-                music.Title = dir.GetDetailsOf(item, 21);
-                music.KBps = dir.GetDetailsOf(item, 28).Trim();
-                music.Collection = dir.GetDetailsOf(item, 14);
-                music.Time = dir.GetDetailsOf(item, 27);
-                music.FileSize = dir.GetDetailsOf(item, 1);
-                music.Category = dir.GetDetailsOf(item, 16);
-                musicList.Add(music);
+                MusicInfo music = new MusicInfo();
+                string filePath = this.lstMusic.SelectedValue.ToString();
+                var existsFile = musicList.Where(x => x.FilePath == filePath).ToList();
+                if (existsFile != null && existsFile.Count > 0)
+                    music = existsFile[0];
+                else
+                {
+                    ShellClass sh = new ShellClass();
+                    Folder dir = sh.NameSpace(Path.GetDirectoryName(filePath));
+                    FolderItem item = dir.ParseName(Path.GetFileName(filePath));
+                    music.FileName = dir.GetDetailsOf(item, 0);
+                    music.Singer = dir.GetDetailsOf(item, 13);
+                    music.Anthor = dir.GetDetailsOf(item, 20);
+                    music.Title = dir.GetDetailsOf(item, 21);
+                    music.KBps = dir.GetDetailsOf(item, 28).Trim();
+                    music.Collection = dir.GetDetailsOf(item, 14);
+                    music.Time = dir.GetDetailsOf(item, 27);
+                    music.FileSize = dir.GetDetailsOf(item, 1);
+                    music.Category = dir.GetDetailsOf(item, 16);
+                    musicList.Add(music);
+                }
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("  文件名：" + music.FileName);
+                sb.AppendLine("  演唱者：" + music.Singer);
+                sb.AppendLine("  创作者：" + music.Anthor);
+                sb.AppendLine("  歌曲名：" + music.Title);
+                sb.AppendLine("  专辑名：" + music.Collection);
+                sb.AppendLine("  比特率：" + music.KBps);
+                sb.AppendLine("时间长度：" + music.Time);
+                sb.AppendLine("文件大小：" + music.FileSize);
+                sb.AppendLine("    流派：" + music.Category);
+                rtxDetail.Text = sb.ToString();
             }
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("  文件名：" + music.FileName);
-            sb.AppendLine("  演唱者：" + music.Singer);
-            sb.AppendLine("  创作者：" + music.Anthor);
-            sb.AppendLine("  歌曲名：" + music.Title);
-            sb.AppendLine("  专辑名：" + music.Collection);
-            sb.AppendLine("  比特率：" + music.KBps);
-            sb.AppendLine("时间长度：" + music.Time);
-            sb.AppendLine("文件大小：" + music.FileSize);
-            sb.AppendLine("    流派：" + music.Category);
-            rtxDetail.Text = sb.ToString();
+            catch { }
         }
 
         private void lstMusic_SelectedIndexChanged(object sender, EventArgs e)
