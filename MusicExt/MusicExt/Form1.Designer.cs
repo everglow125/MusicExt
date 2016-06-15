@@ -57,10 +57,20 @@
             this.btnEditPrefix = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.txtSingerName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.rbtnPlay = new System.Windows.Forms.RadioButton();
+            this.rbtnModify = new System.Windows.Forms.RadioButton();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -98,19 +108,20 @@
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(216, 21);
             this.txtAddress.TabIndex = 8;
-            this.txtAddress.Text = "F:\\CloudMusic";
+            this.txtAddress.Text = "D:\\320";
             // 
             // lstMusic
             // 
             this.lstMusic.AllowDrop = true;
             this.lstMusic.FormattingEnabled = true;
+            this.lstMusic.HorizontalScrollbar = true;
             this.lstMusic.ItemHeight = 12;
-            this.lstMusic.Location = new System.Drawing.Point(29, 55);
-            this.lstMusic.MultiColumn = true;
+            this.lstMusic.Location = new System.Drawing.Point(29, 91);
             this.lstMusic.Name = "lstMusic";
             this.lstMusic.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstMusic.Size = new System.Drawing.Size(273, 400);
+            this.lstMusic.Size = new System.Drawing.Size(273, 364);
             this.lstMusic.TabIndex = 10;
+            this.lstMusic.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lstMusic_MeasureItem);
             this.lstMusic.SelectedIndexChanged += new System.EventHandler(this.lstMusic_SelectedIndexChanged);
             this.lstMusic.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstMusic_DragDrop);
             this.lstMusic.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstMusic_DragEnter);
@@ -128,9 +139,9 @@
             // 
             // rtxDetail
             // 
-            this.rtxDetail.Location = new System.Drawing.Point(318, 222);
+            this.rtxDetail.Location = new System.Drawing.Point(318, 270);
             this.rtxDetail.Name = "rtxDetail";
-            this.rtxDetail.Size = new System.Drawing.Size(537, 267);
+            this.rtxDetail.Size = new System.Drawing.Size(537, 219);
             this.rtxDetail.TabIndex = 12;
             this.rtxDetail.Text = "";
             // 
@@ -343,11 +354,95 @@
             this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(826, 46);
             this.axWindowsMediaPlayer1.TabIndex = 32;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.txtSingerName);
+            this.groupBox4.Controls.Add(this.label2);
+            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Location = new System.Drawing.Point(319, 216);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(537, 49);
+            this.groupBox4.TabIndex = 32;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "歌曲信息";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(214, 15);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(130, 28);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "只改演唱者";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // txtSingerName
+            // 
+            this.txtSingerName.Location = new System.Drawing.Point(54, 19);
+            this.txtSingerName.Name = "txtSingerName";
+            this.txtSingerName.Size = new System.Drawing.Size(154, 21);
+            this.txtSingerName.TabIndex = 15;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "演唱者";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(364, 15);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(127, 28);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "同步专辑名";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // rbtnPlay
+            // 
+            this.rbtnPlay.AutoSize = true;
+            this.rbtnPlay.Checked = true;
+            this.rbtnPlay.Location = new System.Drawing.Point(17, 20);
+            this.rbtnPlay.Name = "rbtnPlay";
+            this.rbtnPlay.Size = new System.Drawing.Size(71, 16);
+            this.rbtnPlay.TabIndex = 33;
+            this.rbtnPlay.TabStop = true;
+            this.rbtnPlay.Text = "双击播放";
+            this.rbtnPlay.UseVisualStyleBackColor = true;
+            // 
+            // rbtnModify
+            // 
+            this.rbtnModify.AutoSize = true;
+            this.rbtnModify.Location = new System.Drawing.Point(143, 20);
+            this.rbtnModify.Name = "rbtnModify";
+            this.rbtnModify.Size = new System.Drawing.Size(71, 16);
+            this.rbtnModify.TabIndex = 34;
+            this.rbtnModify.Text = "双击修改";
+            this.rbtnModify.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.rbtnPlay);
+            this.groupBox5.Controls.Add(this.rbtnModify);
+            this.groupBox5.Location = new System.Drawing.Point(29, 39);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(273, 46);
+            this.groupBox5.TabIndex = 35;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "groupBox5";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 568);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.axWindowsMediaPlayer1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -373,6 +468,10 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -408,6 +507,14 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox3;
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox txtSingerName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.RadioButton rbtnPlay;
+        private System.Windows.Forms.RadioButton rbtnModify;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }
 

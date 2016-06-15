@@ -12,7 +12,8 @@ namespace MusicExt
 {
     public partial class fmDetail : Form
     {
-        MusicInfo music;
+        static MusicInfo music;
+
 
         public fmDetail(MusicInfo _music)
         {
@@ -33,12 +34,13 @@ namespace MusicExt
             music.Title = this.Title.Text;
 
             mt.AlbumArtist = music.Singer;
+            mt.Author = music.Singer;
             mt.AlbumTitle = music.Collection;
-            mt.Author = music.Anthor;
             mt.Comment = "";
             mt.SubTitle = "";
             mt.Title = music.Title;
             mt.SaveChanged(music.FilePath);
+            this.Close();
         }
 
     }

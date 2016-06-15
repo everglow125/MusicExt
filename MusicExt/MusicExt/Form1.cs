@@ -22,7 +22,10 @@ namespace MusicExt
         public Form1()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
         }
+
+
 
         private void BindFileList()
         {
@@ -43,6 +46,12 @@ namespace MusicExt
         public void ImportFolder()
         {
             string folder = this.txtAddress.Text.Trim();
+            Action<string> ac = new Action<string>(ScanBind);
+            ac.BeginInvoke(folder, null, null);
+        }
+
+        public void ScanBind(string folder)
+        {
             ScanFile(folder);
             BindFileList();
         }
@@ -50,6 +59,7 @@ namespace MusicExt
         private void ScanFile(string folder)
         {
             DirectoryInfo directory = new DirectoryInfo(folder);
+            if (directory == null || !directory.Exists) return;
             foreach (FileInfo file in directory.GetFiles())
             {
                 string fullName = folder + "\\" + file.Name;
@@ -147,18 +157,21 @@ namespace MusicExt
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string fileNameEx = txtPrefix.Text.Trim();
+            string singer = this.txtSinger.Text.Trim();
+            string special = this.txtSpecial.Text.Trim();
+            if (singer == "" && special == "")
+                return;
             try
             {
                 foreach (var item in this.lstMusic.Items)
                 {
                     var filePath = (item as TFile).FullName;
                     MediaTags mt = new MediaTags(filePath);
-                    mt.AlbumTitle = this.txtSpecial.Text;
-                    if (this.txtSinger.Text.Trim().ToLower() != "")
+                    mt.AlbumTitle = special;
+                    if (singer != "")
                     {
-                        mt.Author = this.txtSinger.Text;
-                        mt.AlbumArtist = this.txtSinger.Text;
+                        mt.Author = singer;
+                        mt.AlbumArtist = singer;
                     }
                     mt.Comment = "";
                     mt.SubTitle = "";
@@ -193,6 +206,7 @@ namespace MusicExt
         {
             if (this.lstMusic.SelectedIndex > -1)
             {
+                int index = this.lstMusic.SelectedIndex;
                 this.fileList.RemoveAt(this.lstMusic.SelectedIndex);
                 BindFileList();
             }
@@ -293,39 +307,94 @@ namespace MusicExt
                 MessageBox.Show("重命名操作失败：" + ex.Message);
             }
         }
-
         private void lstMusic_DoubleClick(object sender, EventArgs e)
         {
-
-            //   axWindowsMediaPlayer1.URL = this.lstMusic.SelectedValue.ToString();
-            axWindowsMediaPlayer1.Ctlcontrols.currentItem = axWindowsMediaPlayer1.currentPlaylist.get_Item(this.lstMusic.SelectedIndex);
-            axWindowsMediaPlayer1.currentMedia.setItemInfo("Title", this.lstMusic.SelectedValue.ToString());
-            axWindowsMediaPlayer1.Ctlcontrols.play();
-
-            return;
-            MusicInfo music = new MusicInfo();
-            string filePath = this.lstMusic.SelectedValue.ToString();
-            var existsFile = musicList.Where(x => x.FilePath == filePath).ToList();
-            if (existsFile != null && existsFile.Count > 0)
-                music = existsFile[0];
+            if (this.rbtnPlay.Checked)
+            {
+                this.axWindowsMediaPlayer1.URL = this.lstMusic.SelectedValue.ToString();
+            }
             else
             {
-                ShellClass sh = new ShellClass();
-                Folder dir = sh.NameSpace(Path.GetDirectoryName(filePath));
-                FolderItem item = dir.ParseName(Path.GetFileName(filePath));
-                music.FileName = dir.GetDetailsOf(item, 0);
-                music.Singer = dir.GetDetailsOf(item, 13);
-                music.Anthor = dir.GetDetailsOf(item, 20);
-                music.Title = dir.GetDetailsOf(item, 21);
-                music.KBps = dir.GetDetailsOf(item, 28).Trim();
-                music.Collection = dir.GetDetailsOf(item, 14);
-                music.Time = dir.GetDetailsOf(item, 27);
-                music.FileSize = dir.GetDetailsOf(item, 1);
-                music.Category = dir.GetDetailsOf(item, 16);
-                musicList.Add(music);
+                MusicInfo music = new MusicInfo();
+                string filePath = this.lstMusic.SelectedValue.ToString();
+                var existsFile = musicList.Where(x => x.FilePath == filePath).ToList();
+                if (existsFile != null && existsFile.Count > 0)
+                    music = existsFile[0];
+                else
+                {
+                    ShellClass sh = new ShellClass();
+                    Folder dir = sh.NameSpace(Path.GetDirectoryName(filePath));
+                    FolderItem item = dir.ParseName(Path.GetFileName(filePath));
+                    music.FilePath = filePath;
+                    music.FileName = dir.GetDetailsOf(item, 0);
+                    music.Singer = dir.GetDetailsOf(item, 13);
+                    music.Anthor = dir.GetDetailsOf(item, 20);
+                    music.Title = dir.GetDetailsOf(item, 21);
+                    music.KBps = dir.GetDetailsOf(item, 28).Trim();
+                    music.Collection = dir.GetDetailsOf(item, 14);
+                    music.Time = dir.GetDetailsOf(item, 27);
+                    music.FileSize = dir.GetDetailsOf(item, 1);
+                    music.Category = dir.GetDetailsOf(item, 16);
+                    musicList.Add(music);
+                }
+                fmDetail fd = new fmDetail(music);
+                fd.Show();
             }
-            fmDetail fd = new fmDetail(music);
-            fd.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string singer = this.txtSingerName.Text.Trim();
+            if (singer == "")
+                return;
+            try
+            {
+                foreach (var item in this.lstMusic.Items)
+                {
+                    var filePath = (item as TFile).FullName;
+                    MediaTags mt = new MediaTags(filePath);
+                    mt.Author = singer;
+                    mt.AlbumArtist = singer;
+                    mt.Comment = "";
+                    mt.SubTitle = "";
+                    mt.SaveChanged(filePath);
+                }
+                MessageBox.Show("更新完成");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("更新失败" + ex.Message);
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string singer = this.txtSingerName.Text.Trim();
+            try
+            {
+                foreach (var item in this.lstMusic.Items)
+                {
+                    var filePath = (item as TFile).FullName;
+                    MediaTags mt = new MediaTags(filePath);
+                    mt.Author = singer == "" ? mt.Author : singer;
+                    mt.AlbumArtist = singer == "" ? mt.Author : singer;
+                    mt.AlbumTitle = singer == "" ? mt.Author : singer;
+                    mt.Comment = "";
+                    mt.SubTitle = "";
+                    mt.SaveChanged(filePath);
+                }
+                MessageBox.Show("更新完成");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("更新失败" + ex.Message);
+            }
+        }
+
+        private void lstMusic_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            e.ItemHeight = 20;
         }
 
 
