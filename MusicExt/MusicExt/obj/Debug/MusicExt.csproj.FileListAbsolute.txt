@@ -51,3 +51,4 @@ E:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.Properties.Resources.resources
 E:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.csproj.GenerateResource.Cache
 E:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.exe
 E:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.pdb
+E:\MusicExt\MusicExt\MusicExt\obj\Debug\MusicExt.Stock.resources
